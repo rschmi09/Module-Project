@@ -1,7 +1,7 @@
 // src/scripts/importProducts.ts
 
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig.ts';
+import { db } from '../firebaseConfig';
 
 async function importProducts() {
     try {

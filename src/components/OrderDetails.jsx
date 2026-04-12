@@ -1,14 +1,9 @@
-// src/components/OrderDetails.tsx
+// src/components/OrderDetails.jsx
 
 // show products inside of an order
 
-import type { Order } from '../types/types';
 
-type Props = {
-    order: Order
-}
-
-const OrderDetails = ({ order }: Props) => {
+const OrderDetails = ({ order }) => {
 
     return (
         <div>

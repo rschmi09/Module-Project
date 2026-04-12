@@ -17,6 +17,10 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { BrowserRouter } from 'react-router-dom';
 // --- Mock Firebase auth and firestore ---
+jest.mock('../firebaseConfig', () => ({
+    auth: {},
+    db: {},
+}));
 jest.mock('firebase/auth', () => ({
     createUserWithEmailAndPassword: jest.fn(),
 }));
@@ -36,6 +40,7 @@ window.alert = jest.fn();
 describe('Register Component', () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        window.alert = jest.fn(); // mock alert
     });
     test('renders Register form and updates input values', () => {
         render(_jsx(BrowserRouter, { children: _jsx(Register, {}) }));
@@ -50,7 +55,7 @@ describe('Register Component', () => {
         expect(emailInput.value).toBe('test@example.com');
         expect(passwordInput.value).toBe('password123');
     });
-    test('successful registration calls Firebase and navigates, failed registration shows error', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('successful registration calls Firebase and navigates', () => __awaiter(void 0, void 0, void 0, function* () {
         const mockCreateUser = createUserWithEmailAndPassword;
         const mockSetDoc = setDoc;
         const mockDoc = doc;
@@ -85,7 +90,10 @@ describe('Register Component', () => {
             expect(window.alert).toHaveBeenCalledWith('Registration successful!');
             expect(mockedNavigate).toHaveBeenCalledWith('/');
         });
-        // --- Scenario 2: Failed registration ---
+    }));
+    // --- Scenario 2: Failed registration ---
+    test('failed registration shows error message', () => __awaiter(void 0, void 0, void 0, function* () {
+        const mockCreateUser = createUserWithEmailAndPassword;
         mockCreateUser.mockRejectedValueOnce(new Error('Email already in use'));
         render(_jsx(BrowserRouter, { children: _jsx(Register, {}) }));
         const emailInput2 = screen.getByPlaceholderText('Email');

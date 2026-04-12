@@ -1,11 +1,10 @@
-// src/__tests__/Register.test.tsx
+// src/__tests__/Register.test.jsx
 
 // import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Register from '../components/Register';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import type { User, UserCredential } from 'firebase/auth'
 import { setDoc, doc } from 'firebase/firestore';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -28,7 +27,7 @@ jest.mock('firebase/firestore', () => ({
 // --- Mock useNavigate from react-router-dom ---
 const mockedNavigate = jest.fn();
 jest.mock('react-router-dom', () => {
-  const actual = jest.requireActual('react-router-dom') as Record<string, unknown>;
+  const actual = jest.requireActual('react-router-dom');
   return {
     ...actual,
     useNavigate: () => mockedNavigate,
@@ -51,8 +50,8 @@ describe('Register Component', () => {
       </BrowserRouter>
     );
 
-    const emailInput = screen.getByPlaceholderText('Email') as HTMLInputElement;
-    const passwordInput = screen.getByPlaceholderText('Password') as HTMLInputElement;
+    const emailInput = screen.getByPlaceholderText('Email');
+    const passwordInput = screen.getByPlaceholderText('Password');
     const registerButton = screen.getByRole('button', { name: /register/i });
 
     expect(emailInput).toBeInTheDocument();
@@ -67,20 +66,18 @@ describe('Register Component', () => {
   });
 
   test('successful registration calls Firebase and navigates', async () => {
-    const mockCreateUser = createUserWithEmailAndPassword as jest.MockedFunction<
-      typeof createUserWithEmailAndPassword
-    >;
-    const mockSetDoc = setDoc as jest.MockedFunction<typeof setDoc>;
-    const mockDoc = doc as jest.MockedFunction<typeof doc>;
+    const mockCreateUser = createUserWithEmailAndPassword;
+    const mockSetDoc = setDoc;
+    const mockDoc = doc;
 
     // --- Scenario 1: Successful registration ---
     //----Mock user
     const mockUser = {
         uid: 'abc123',
         email: 'success@example.com',
-    } as Partial<User> as User;
+    };
 
-    const mockUserCredential: UserCredential = {
+    const mockUserCredential = {
         user: mockUser,
         providerId: 'password',
         operationType: 'signIn',
@@ -88,7 +85,12 @@ describe('Register Component', () => {
     
     
     mockCreateUser.mockResolvedValueOnce(mockUserCredential);
-    mockDoc.mockReturnValue('mocked-doc' as unknown as import('firebase/firestore').DocumentReference); // doc() returns a reference
+    mockDoc.mockReturnValue('mocked-doc'); 
+    /*
+    mockDoc.mockReturnValue({
+        id: 'mocked-doc-id',
+    });
+    */
     mockSetDoc.mockResolvedValueOnce(undefined);
 
     render(
@@ -120,9 +122,7 @@ describe('Register Component', () => {
 
     // --- Scenario 2: Failed registration ---
   test('failed registration shows error message', async () => {
-    const mockCreateUser = createUserWithEmailAndPassword as jest.MockedFunction<
-        typeof createUserWithEmailAndPassword
-    >;
+    const mockCreateUser = createUserWithEmailAndPassword;
     
     mockCreateUser.mockRejectedValueOnce(new Error('Email already in use'));
 

@@ -1,27 +1,27 @@
-// src/components/ProductManagement.tsx
+// src/components/ProductManagement.jsx
 
 // CRUD operations w/ Firestrore: Add, Display, Update, and Delete
 
 import { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
-import type { Product } from '../types/types';
+
 
 const placeholderImage = "https://via.placeholder.com/150";
 
 const ProductManagement = () => {
-    const [products, setProducts] = useState<Product[]>([]);
+    const [products, setProducts] = useState([]);
 
     // Inputs for new products
     const [newTitle, setNewTitle] = useState('');
-    const [newPrice, setNewPrice] = useState<number>(0);
+    const [newPrice, setNewPrice] = useState(0);
     const [newCategory, setNewCategory] = useState('');
     const [newDescription, setNewDescription] = useState('');
     const [newImage, setNewImage] = useState('');
-    const [newRating, setNewRating] = useState<number>(0);
+    const [newRating, setNewRating] = useState(0);
 
     // Update inputs per product
-    const [editValues, setEditValues] = useState<Record<string, Partial<Product>>>({});
+    const [editValues, setEditValues] = useState({});
 
     // Firestore CRUD functions
     const createProduct = async () => {
@@ -49,7 +49,7 @@ const ProductManagement = () => {
         setNewRating(0);
     };
 
-    const updateProduct = async (productId: string) => {
+    const updateProduct = async (productId) => {
         const updatedData = editValues[productId];
         if (!updatedData) return;
 
@@ -60,7 +60,7 @@ const ProductManagement = () => {
         setEditValues(prev => ({ ...prev, [productId]: {} }));
     };
 
-    const deleteProduct = async (productId: string) => {
+    const deleteProduct = async (productId) => {
         const productDoc = doc(db, 'products', productId);
         await deleteDoc(productDoc);
     };
@@ -70,7 +70,7 @@ const ProductManagement = () => {
         const unsubscribe = onSnapshot(collection(db, 'products'), (snapshot) => {
             const data = snapshot.docs.map(doc => ({
                 id: doc.id,
-                ...(doc.data() as Omit<Product, 'id'>)
+                ...(doc.data())
             }));
             setProducts(data);
         });

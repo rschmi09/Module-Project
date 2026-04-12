@@ -1,9 +1,7 @@
-// src/components/ShoppingCart.tsx
+// src/components/ShoppingCart.jsx
 
 import { useSelector, useDispatch } from 'react-redux'
-import type { AppDispatch } from '../redux/store'
 import { updateQuantity, removeFromCart, clearCart } from '../redux/cartSlice'
-import type { Product } from '../types/types'
 import { selectCart, selectTotalCount, selectTotalPrice } from '../redux/selectors' 
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
@@ -12,15 +10,15 @@ import { auth } from '../firebaseConfig';
 
 
 const ShoppingCart = () => {
-    const dispatch:AppDispatch = useDispatch();
+    const dispatch = useDispatch();
 
     // Selectors (for totals)
-    const cart: Product[] = useSelector(selectCart);
-    const totalCount: number = useSelector(selectTotalCount);
-    const totalPrice: number = useSelector(selectTotalPrice);
+    const cart = useSelector(selectCart);
+    const totalCount = useSelector(selectTotalCount);
+    const totalPrice = useSelector(selectTotalPrice);
 
     // Handle Checkout
-    const handleCheckout = async (): Promise<void> => {
+    const handleCheckout = async () => {
 
         const order = {
             userId: auth.currentUser?.uid,
@@ -47,7 +45,7 @@ const ShoppingCart = () => {
            {!cart.length && <p>Your cart is empty</p>}
            
 
-            {cart.map((item: Product) => (
+            {cart.map((item) => (
                 
                 <div 
                     key={item.id} 

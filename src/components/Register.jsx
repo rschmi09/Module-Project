@@ -1,7 +1,6 @@
-// src/components/Register.tsx
+// src/components/Register.jsx
 
 import { useState } from 'react';
-import type { FormEvent } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 
@@ -12,13 +11,13 @@ import { useNavigate, Link } from 'react-router-dom';
 
 
 const Register = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<string | null>(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
-    const handleRegister = async (e: FormEvent) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
 
         try {
@@ -34,7 +33,7 @@ const Register = () => {
             alert('Registration successful!');
             navigate('/');      // redirect to home
 
-        } catch (err: unknown) {
+        } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
             } else {

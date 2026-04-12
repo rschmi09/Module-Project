@@ -1,22 +1,18 @@
-// src/components/CategoryNav.tsx
+// src/components/CategoryNav.jsx
 
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
-type Props = {
-    selectedCategory: string
-    setSelectedCategory: (category: string) => void
-}
 
 // Fetch Categories
-const fetchCategories = async (): Promise<string[]> => {
+const fetchCategories = async () => {
         const response = await axios.get(
         'https://fakestoreapi.com/products/categories'
     )
     return response.data
 }
 
-const CategoryNav = ({ selectedCategory, setSelectedCategory }: Props) => {
+const CategoryNav = ({ selectedCategory, setSelectedCategory }) => {
     const { data, isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: fetchCategories

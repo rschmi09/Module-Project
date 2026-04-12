@@ -17,6 +17,10 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { BrowserRouter } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 // --- Mock Firebase auth ---
+jest.mock('../firebaseConfig', () => ({
+    auth: {},
+    db: {},
+}));
 jest.mock('firebase/auth', () => ({
     signInWithEmailAndPassword: jest.fn(),
 }));
@@ -47,30 +51,35 @@ describe('Login Component', () => {
         expect(emailInput.value).toBe('test@example.com');
         expect(passwordInput.value).toBe('password123');
     });
-    // --- Test 2: Successful and failed login ---
-    test('successful login navigates to home, failed login shows error', () => __awaiter(void 0, void 0, void 0, function* () {
+    // --- Test 2: Successful login ---
+    test('successful login navigates to home', () => __awaiter(void 0, void 0, void 0, function* () {
         const mockSignIn = signInWithEmailAndPassword;
-        // --- Scenario 1: Successful login ---
         mockSignIn.mockResolvedValueOnce({ user: { uid: '123' } });
         render(_jsx(BrowserRouter, { children: _jsx(Login, {}) }));
         const emailInput = screen.getByPlaceholderText('Email');
         const passwordInput = screen.getByPlaceholderText('Password');
         const loginButton = screen.getByRole('button', { name: /login/i });
+        // Simulate typing in inputs
         fireEvent.change(emailInput, { target: { value: 'success@example.com' } });
         fireEvent.change(passwordInput, { target: { value: 'password123' } });
         fireEvent.click(loginButton);
         yield waitFor(() => {
+            expect(mockSignIn).toHaveBeenCalledWith(expect.anything(), 'success@example.com', 'password123');
             expect(mockedNavigate).toHaveBeenCalledWith('/');
         });
-        // --- Scenario 2: Failed login ---
+    }));
+    // --- Test 3: Failed login and shows error message ---
+    test('failed login shows error', () => __awaiter(void 0, void 0, void 0, function* () {
+        const mockSignIn = signInWithEmailAndPassword;
         mockSignIn.mockRejectedValueOnce(new FirebaseError('auth/invalid-credentials', 'Invalid credentials'));
         render(_jsx(BrowserRouter, { children: _jsx(Login, {}) }));
-        const emailInput2 = screen.getByPlaceholderText('Email');
-        const passwordInput2 = screen.getByPlaceholderText('Password');
-        const loginButton2 = screen.getByRole('button', { name: /login/i });
-        fireEvent.change(emailInput2, { target: { value: 'fail@example.com' } });
-        fireEvent.change(passwordInput2, { target: { value: 'wrongpass' } });
-        fireEvent.click(loginButton2);
+        const emailInput = screen.getByPlaceholderText('Email');
+        const passwordInput = screen.getByPlaceholderText('Password');
+        const loginButton = screen.getByRole('button', { name: /login/i });
+        // Simulate typing in inputs
+        fireEvent.change(emailInput, { target: { value: 'fail@example.com' } });
+        fireEvent.change(passwordInput, { target: { value: 'wrongpass' } });
+        fireEvent.click(loginButton);
         // Check that error message is displayed
         const errorMessage = yield screen.findByText('Invalid credentials');
         expect(errorMessage).toBeInTheDocument();

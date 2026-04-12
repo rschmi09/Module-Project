@@ -1,4 +1,4 @@
-// src/components/__tests__/Login.test.tsx
+// src/components/__tests__/Login.test.jsx
 
 // import React from 'react';
 
@@ -26,7 +26,7 @@ jest.mock('firebase/auth', () => ({
 const mockedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => {
-    const actual = jest.requireActual('react-router-dom') as Record<string, unknown>;
+    const actual = jest.requireActual('react-router-dom');
     return {
         ...actual,
         useNavigate: () => mockedNavigate,
@@ -47,8 +47,8 @@ describe('Login Component', () => {
             </BrowserRouter>
         );
 
-        const emailInput = screen.getByPlaceholderText('Email') as HTMLInputElement;
-        const passwordInput = screen.getByPlaceholderText('Password') as HTMLInputElement;
+        const emailInput = screen.getByPlaceholderText('Email');
+        const passwordInput = screen.getByPlaceholderText('Password');
         const loginButton = screen.getByRole('button', { name: /login/i });
 
         // Check that form elements are rendered
@@ -67,7 +67,7 @@ describe('Login Component', () => {
 
     // --- Test 2: Successful login ---
     test('successful login navigates to home', async () => {
-        const mockSignIn = signInWithEmailAndPassword as jest.Mock;
+        const mockSignIn = signInWithEmailAndPassword;
 
         mockSignIn.mockResolvedValueOnce({ user: { uid: '123' } });
 
@@ -100,7 +100,7 @@ describe('Login Component', () => {
   
     // --- Test 3: Failed login and shows error message ---
     test('failed login shows error', async () => {
-        const mockSignIn = signInWithEmailAndPassword as jest.Mock;
+        const mockSignIn = signInWithEmailAndPassword;
 
         mockSignIn.mockRejectedValueOnce(
             new FirebaseError('auth/invalid-credentials', 'Invalid credentials')

@@ -1,15 +1,13 @@
-// src/redux/cartSlice.ts
+// src/redux/cartSlice.js
 
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Product, CartState } from '../types/types'
 
 
 // Initialize from sessionStorage
 const cartFromStorage = sessionStorage.getItem('cart');
-const initialState: CartState = cartFromStorage ? JSON.parse(cartFromStorage) : []
+const initialState = cartFromStorage ? JSON.parse(cartFromStorage) : []
 
-const saveToSession = (cart: CartState) => {
+const saveToSession = (cart) => {
     sessionStorage.setItem('cart', JSON.stringify(cart))
 }
 
@@ -17,7 +15,7 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addToCart: (state: CartState, action: PayloadAction<Product>) => {
+        addToCart: (state, action) => {
             const existing = state.find(item => item.id === action.payload.id)
             if (existing) {
                 existing.count = (existing.count ?? 0) + 1
@@ -30,7 +28,7 @@ const cartSlice = createSlice({
 
         updateQuantity: (
             state,
-            action: PayloadAction<{ id: string; count: number }>
+            action
         ) => {
             const { id, count } = action.payload;
             const item = state.find(i => i.id === id)
@@ -49,7 +47,7 @@ const cartSlice = createSlice({
             saveToSession(state)
         },
 
-           removeFromCart: (state: CartState, action: PayloadAction<string>) => {
+           removeFromCart: (state, action) => {
             const index = state.findIndex(item => item.id == action.payload)
             if (index >= 0) {
                 state.splice(index, 1)
@@ -57,7 +55,7 @@ const cartSlice = createSlice({
             saveToSession(state)
         },
 
-        clearCart: (state: CartState) => {
+        clearCart: (state) => {
             state.length = 0
             saveToSession(state)
         }

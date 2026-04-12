@@ -1,4 +1,4 @@
-// src/pages/Home.tsx
+// src/pages/Home.jsx
 
 import { useState } from 'react'
 import CategoryNav from '../components/CategoryNav'
@@ -6,7 +6,7 @@ import Products from '../components/Products'
 
 const Home = () => {
     // Track the currently selected category
-    const [selectedCategory, setSelectedCategory] = useState<string>('')
+    const [selectedCategory, setSelectedCategory] = useState('')
 
     return (
         <div>

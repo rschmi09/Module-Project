@@ -1,22 +1,15 @@
-// src/components.OrderHistory.tsx
+// src/components.OrderHistory.jsx
 
 // show all orders for a user
 
 import { useEffect, useState } from 'react';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
-import { Timestamp } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { auth } from '../firebaseConfig';
 
-type Order = {
-    id: string
-    userId: string
-    totalPrice: number
-    createdAt: Timestamp
-}
 
 const OrderHistory = () => {
-    const [orders, setOrders] = useState<Order[]>([])
+    const [orders, setOrders] = useState([])
 
     useEffect(() => {
 
@@ -30,7 +23,7 @@ const OrderHistory = () => {
             const data = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
-            })) as Order []
+            })) 
 
             setOrders(data)
         })

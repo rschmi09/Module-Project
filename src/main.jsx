@@ -1,11 +1,11 @@
-// src/main.tsx
+// src/main.jsx
 
 // connect store to React by wrapping the app in a provider component
 
 import './index.css'
-import App from './App.tsx'
+import App from './App'
 import { Provider } from 'react-redux'
-import { store } from './redux/store.ts'
+import { store } from './redux/store'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
@@ -13,7 +13,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 const queryClient = new QueryClient()
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>

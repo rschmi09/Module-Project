@@ -1,35 +1,30 @@
-// src/components/Products.tsx
+// src/components/Products.jsx
 
 // Fetch data using 'useQuery'
 
 import { useQuery } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cartSlice';
-import type { Product } from '../types/types';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
-
-type Props = {
-    selectedCategory: string
-}
 
 // source for fallback placeholder image 
 const placeholderImage = 'https://via.placeholder.com/150';
 
 // Fetch function
-const fetchProducts = async (): Promise<Product[]> => {
+const fetchProducts = async () => {
     const querySnapshot = await getDocs(collection(db, 'products'));
     
-    const products: Product[] = querySnapshot.docs.map((doc) => ({
+    const products = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        ...(doc.data() as Omit<Product, 'id'>)
+        ...(doc.data())
     }));
 
     return products;
 };
 
-const Products = ({ selectedCategory }: Props) => {
+const Products = ({ selectedCategory }) => {
     const dispatch = useDispatch();
 
     // useQuery

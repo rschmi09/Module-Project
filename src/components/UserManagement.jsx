@@ -1,48 +1,40 @@
-// src/components/UserManagement.tsx
+// src/components/UserManagement.jsx
 
 // CRUD operations w/ Firestrore: Display, Update, and Delete
-// Create is included in Register.tsx
+// Create is included in Register.jsx
 
 import { useState, useEffect } from "react";
 import { db } from '../firebaseConfig';
 import { collection, doc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
 
-interface User{
-    id?: string;    // id is optional, as it will only be available after data is fetched
-    name: string;
-    age: number;
-    address: string;
-}
 
 const UserManagement = () => {
-    const [users, setUsers] = useState<User[]>([]);
-    const [newName, setNewName] = useState<string>('');
-    const [newAge, setNewAge] = useState<string>('');
-    const [newAddress, setNewAddress] = useState<string>('');
+    const [users, setUsers] = useState([]);
+    const [newName, setNewName] = useState('');
+    const [newAge, setNewAge] = useState('');
+    const [newAddress, setNewAddress] = useState('');
 
     // updateUser Function
     const updateUser = async (
-        userId: string | undefined,
-        updatedData: Partial<User>
+        userId,
+        updatedData
     )  => {
         if (!userId) return;
 
         const userDoc = doc(db, 'users', userId);
         await updateDoc(userDoc, updatedData);
 
-        //fetchData(); - removed to utilize firestore realtime listener
     };
 
     // deleteUser Function
     const deleteUser = async (
-        userId: string | undefined,
+        userId,
     ) => {
         if (!userId) return;
 
         const userDoc = doc(db, 'users', userId);
         await deleteDoc(userDoc);
 
-        //fetchData(); - removed to utilize firestore realtime listener
     };
 
     
@@ -52,7 +44,7 @@ const UserManagement = () => {
             const dataArray = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
-                })) as User[];
+                }));
         
             setUsers(dataArray);
         });
@@ -60,9 +52,6 @@ const UserManagement = () => {
     // cleanup listener when component unmounts
         return () => unsubscribe();
 
-    // allow all functions to reuse 'fetchData()' - removed to utilize firestore realtime listener
-    //useEffect(() => {
-        //fetchData();
         
    }, []);
 

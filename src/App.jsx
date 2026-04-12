@@ -1,4 +1,4 @@
-// src/App.tsx
+// src/App.jsx
 
 import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
@@ -8,10 +8,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectTotalCount } from './redux/selectors'
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import type { User } from 'firebase/auth';
 import { auth } from './firebaseConfig';
 import { setUser, clearUser } from './redux/authSlice';
-import type { AppDispatch, RootState } from './redux/store';
 import Login from './components/Login';
 import Register from './components/Register';
 import { handleLogout } from './components/Logout';
@@ -20,13 +18,13 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 
 const App = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   // get total item count from Redux
   const totalCount = useSelector(selectTotalCount);
 
     // Access current user anywhere
-  const currentUser = useSelector((state: RootState) => state.auth.currentUser);
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   const location = useLocation();
   
@@ -35,7 +33,7 @@ const App = () => {
 
   // Listen to Firebase Auth changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(setUser(user));      //store logged-in user in Redux
       } else {
