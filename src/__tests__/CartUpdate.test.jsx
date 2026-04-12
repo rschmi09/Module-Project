@@ -50,7 +50,7 @@ jest.mock('@tanstack/react-query', () => ({
                 description: 'Test Description',
                 image: 'test-image.jpg',
                 rating: { rate: 4, count: 10 } 
-            }
+            }                    
         ],
         isLoading: false,
         error: null,
