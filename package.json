@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "test": "jest",
     "lint": "eslint .",
     "preview": "vite preview",
-    "import-products": "ts-node src/scripts/importProducts.ts"
+    "import-products": "node src/scripts/importProducts.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
@@ -30,7 +30,6 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@types/jest": "^30.0.0",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
@@ -40,7 +39,6 @@
     "globals": "^16.5.0",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
-    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript-eslint": "^8.48.0",
     "util": "^0.12.5",

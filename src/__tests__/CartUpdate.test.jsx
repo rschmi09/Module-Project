@@ -1,5 +1,7 @@
 // src/__tests__/CartUpdate.test.jsx
 
+import React from 'react';
+
 jest.mock('../firebaseConfig', () => ({                                 // simulate authorized user            
     __esModule: true,
     db: {},
