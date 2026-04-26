@@ -6,6 +6,11 @@ Project Overview
 Frontend Specialization 02 Module Project
 
 CURRENT PROJECT GOAL:
+
+ACTIVE Vercel website: https://module-project-henna.vercel.app/
+Registered email: project@email.com
+Registered password: 123!Word
+
 Implement a streamlined Continuous Integration 
 and Continuous Deployment (CI/CD) pipeline. 
 To ensure the project is robust, TDD should be 
