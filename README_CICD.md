@@ -45,47 +45,30 @@ Installs:
 - jest @testing-library/react @testing-library/jest-dom
 - jest-environment-jsdom
 - @babel/preset-env @babel/preset-react
-- ts-jest
-- @types/jest
 - fast-text-encoding
 - vercel
 
 Installations (specifics):
-├── @babel/preset-env@7.29.0
-├── @babel/preset-react@7.28.5
-├── @eslint/js@9.39.3
-├── @jest/globals@30.3.0
-├── @reduxjs/toolkit@2.11.2
-├── @tanstack/react-query@5.90.21
-├── @testing-library/jest-dom@6.9.1
-├── @testing-library/react@16.3.2
-├── @testing-library/user-event@14.6.1
-├── @types/jest@30.0.0
-├── @types/node@24.12.0
-├── @types/react-dom@19.2.3
-├── @types/react-router-dom@5.3.3
-├── @types/react@19.2.14
-├── @vitejs/plugin-react@5.1.4
-├── axios@1.13.6
-├── eslint-plugin-react-hooks@7.0.1
-├── eslint-plugin-react-refresh@0.4.26
-├── eslint@9.39.3
-├── fast-text-encoding@1.0.6
-├── firebase@12.10.0
-├── globals@16.5.0
-├── jest-environment-jsdom@30.3.0
-├── jest@30.3.0
-├── react-dom@19.2.4
-├── react-redux@9.2.0
-├── react-router-dom@7.13.1
-├── react@19.2.4
-├── redux@5.0.1
-├── ts-jest@29.4.6
-├── ts-node@10.9.2
-├── typescript-eslint@8.56.0
-├── typescript@5.9.3
-├── util@0.12.5
-└── vite@7.3.1
+    "@babel/preset-env": "^7.29.0",
+    "@babel/preset-react": "^7.28.5",
+    "@eslint/js": "^9.39.1",
+    "@jest/globals": "^30.3.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "fast-text-encoding": "^1.0.6",
+    "globals": "^16.5.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "ts-node": "^10.9.2",
+    "typescript-eslint": "^8.48.0",
+    "util": "^0.12.5",
+    "vite": "^7.3.1"
 
 -------------------------------------
 Project Architecture
@@ -98,48 +81,43 @@ Project Architecture
 src
 |
 |_ __tests__
-|   |_CartUpdate.test.tsx
-|   |_Login.test.tsx
-|   |_Register.test.tsx
+|   |_CartUpdate.test.jsx
+|   |_Login.test.jsx
+|   |_Register.test.jsx
 |
 |
 |_ components
-|   |_CategoryNav.tsx
-|   |_Login.tsx
-|   |_Logout.tsx
-|   |_OrderDetails.tsx
-|   |_OrderHistory.tsx
-|   |_ProductManagement.tsx
-|   |_Products.tsx
-|   |_ProtectedRoute.tsx
-|   |_Register.tsx
-|   |_ShoppingCart.tsx
-|   |_UserManagement.tsx
+|   |_CategoryNav.jsx
+|   |_Login.jsx
+|   |_Logout.jsx
+|   |_OrderDetails.jsx
+|   |_OrderHistory.jsx
+|   |_ProductManagement.jsx
+|   |_Products.jsx
+|   |_ProtectedRoute.jsx
+|   |_Register.jsx
+|   |_ShoppingCart.jsx
+|   |_UserManagement.jsx
 |
 |
 |_ pages
-|   |_Home.tsx
+|   |_Home.jsx
 |
 |
 |_redux
-|   |_authSlice.ts
-|   |_cartSlice.ts
-|   |_selectors.ts
-|   |_store.ts
+|   |_authSlice.js
+|   |_cartSlice.js
+|   |_selectors.js
+|   |_store.js
 |
 |
 scripts
-|   |_importProducts.ts
+|   |_importProducts.js
 |
-|
-|_ types
-|   |_types.ts
-|
-|
-|_App.txs
-|
-|
-|_firebase.Config.ts
+||
+|_App.jxs
+
+
 
 
 -------------------------------------
